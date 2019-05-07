@@ -5,6 +5,7 @@ var express = require('express'),
     restful = require('node-restful'),
     mongoose = restful.mongoose;
 const PORT = process.env.PORT || 5000
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://db:27017/restaurants'
 var app = express();
 
 app.use(morgan('dev'));
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(methodOverride());
 
-mongoose.connect("mongodb://db:27017/restaurants");
+mongoose.connect(MONGODB_URI);
 
 var Restaurant = app.restaurant = restful.model('restaurant', mongoose.Schema({
     title: String,
