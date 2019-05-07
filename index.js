@@ -4,6 +4,8 @@ var express = require('express'),
     morgan = require('morgan'),
     restful = require('node-restful'),
     mongoose = restful.mongoose;
+
+var cors = require('cors')
 const PORT = process.env.PORT || 5000
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://db:27017/restaurants'
 var app = express();
@@ -13,6 +15,7 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(methodOverride());
+app.use(cors())
 
 mongoose.connect(MONGODB_URI);
 
