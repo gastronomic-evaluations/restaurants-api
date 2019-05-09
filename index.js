@@ -1,34 +1,40 @@
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    morgan = require('morgan'),
-    restful = require('node-restful'),
-    mongoose = restful.mongoose;
-
-var cors = require('cors')
+const express = require('express')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+const morgan = require('morgan')
+const restful = require('node-restful')
+const mongoose = restful.mongoose
+const cors = require('cors')
 const PORT = process.env.PORT || 5000
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://db:27017/restaurants'
-var app = express();
+const app = express()
 
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({'extended':'true'}));
-app.use(bodyParser.json());
-app.use(bodyParser.json({type:'application/vnd.api+json'}));
-app.use(methodOverride());
+app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({'extended':'true'}))
+app.use(bodyParser.json())
+app.use(bodyParser.json({type:'application/vnd.api+json'}))
+app.use(methodOverride())
 app.use(cors())
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI)
 
-var Restaurant = app.restaurant = restful.model('restaurant', mongoose.Schema({
-    title: String,
-    rating: Number,
-  }))
-  .methods(['get', 'post', 'put', 'delete']);
+const RestaurantsSchema = mongoose.Schema({
+  title: String,
+  rating: Number,
+  ocasion: String,
+  fame: String,
+  knowFor: String,
+  date: { type: Date, default: Date.now }
+})
 
-Restaurant.register(app, '/restaurants');
+const Restaurant = app.restaurant = restful
+  .model('restaurant', RestaurantsSchema)
+  .methods(['get', 'post', 'put', 'delete'])
+
+Restaurant.register(app, '/restaurants')
 
 app.get('/healthcheck', (req, res) => {
   res.send('alive!')
 })
 
-app.listen(PORT);
+app.listen(PORT)

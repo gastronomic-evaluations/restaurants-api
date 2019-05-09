@@ -5,11 +5,11 @@ ENV LC_ALL=C.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     TZ=America/Sao_Paulo
 
-WORKDIR /api
+WORKDIR /gastronomic-evaluations-api
 
 USER node
 
-ENTRYPOINT ["/api/docker/entrypoint.sh"]
+ENTRYPOINT ["/gastronomic-evaluations-api/docker/entrypoint.sh"]
 
 EXPOSE 5000
 
