@@ -13,4 +13,4 @@ ENTRYPOINT ["/gastronomic-evaluations-api/docker/entrypoint.sh"]
 
 EXPOSE 5000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "server"]
