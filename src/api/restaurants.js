@@ -2,7 +2,6 @@ const { mongoose, model } = require('node-restful')
 
 const RestaurantsSchema = mongoose.Schema({
   title: String,
-  rating: Number,
   knowFor: String,
   ocasion: String,
   observations: String,
