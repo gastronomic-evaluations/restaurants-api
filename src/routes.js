@@ -5,7 +5,7 @@ const monitor = require('express-status-monitor')(monitorConfig)
 module.exports = (server) => {
   const router = express.Router()
   server.use(monitor)
-  server.use(router)
+  server.use('/api', router)
 
   const restaurantService = require('./api/restaurantsService')
   restaurantService.register(router, '/restaurants')
