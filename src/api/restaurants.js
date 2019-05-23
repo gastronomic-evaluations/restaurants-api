@@ -5,9 +5,10 @@ const RestaurantsSchema = mongoose.Schema({
   knowFor: String,
   ocasion: String,
   observations: String,
+  order: String,
   waitTime: String,
   address: String,
-  date: { type: Date, default: Date.now },
+  date: String,
   ratings: {
     service: Number,
     environment: Number,
@@ -25,7 +26,14 @@ const RestaurantsSchema = mongoose.Schema({
     music: Boolean,
     goodForGroups: Boolean,
     funny: Boolean,
-    goodForCouples: Boolean
+    goodForCouples: Boolean,
+    airConditioning: Boolean,
+    parking: Boolean,
+    acceptCards: Boolean,
+    acceptReserve: Boolean,
+    goodDrinks: Boolean,
+    openLate: Boolean,
+    outdoorTables: Boolean
   }
 })
 
