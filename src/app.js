@@ -9,5 +9,4 @@ database();
 middlewares(app);
 routes(app);
 
-
 module.exports = app;

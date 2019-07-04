@@ -1,4 +1,4 @@
-const Restaurants = require('./restaurants');
+const Restaurants = require('../models/restaurants');
 
 Restaurants.methods(['get', 'post', 'put', 'delete']);
 Restaurants.updateOptions({ new: true, runValidators: true });
