@@ -1,4 +1,4 @@
-const { mongoose, model } = require('node-restful')
+const { mongoose, model } = require('node-restful');
 
 const RestaurantsSchema = mongoose.Schema({
   title: String,
@@ -13,7 +13,7 @@ const RestaurantsSchema = mongoose.Schema({
     service: Number,
     environment: Number,
     food: Number,
-    price: Number
+    price: Number,
   },
   recomendations: {
     askNext: String,
@@ -33,9 +33,8 @@ const RestaurantsSchema = mongoose.Schema({
     acceptReserve: Boolean,
     goodDrinks: Boolean,
     openLate: Boolean,
-    outdoorTables: Boolean
-  }
-})
+    outdoorTables: Boolean,
+  },
+});
 
-module.exports = model('Restaurant', RestaurantsSchema)
-
+module.exports = model('Restaurant', RestaurantsSchema);

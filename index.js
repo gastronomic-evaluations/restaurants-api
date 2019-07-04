@@ -1,4 +1,4 @@
+const PORT = process.env.PORT || 5000;
+const app = require('./src/app');
 
-const server = require('./src/server')
-require('./src/database')
-require('./src/routes')(server)
+app.listen(PORT);
