@@ -14,7 +14,9 @@ module.exports = (app) => {
     .post(wishList.save);
 
   app.route('/api/wishlist/:id')
-    .delete(wishList.remove);
+    .put(wishList.update)
+    .delete(wishList.remove)
+    .get(wishList.findById);
 
   app.route('/healthcheck')
     .get(applicationStatus);
