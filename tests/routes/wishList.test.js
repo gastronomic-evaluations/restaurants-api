@@ -2,6 +2,7 @@ const request = require('supertest');
 const WishList = require('../../src/models/wishList');
 
 const app = require('../../src/app');
+const { wishList: wishlistFixture } = require('./../fixtures/fixtures');
 
 describe('Wish List', () => {
   beforeAll(async (done) => {
@@ -22,7 +23,7 @@ describe('Wish List', () => {
 
   test('POST /api/wishlist', async () => {
     const res = await request(app).post('/api/wishlist')
-      .send({ name: 'Restaurant Name' });
+      .send(wishlistFixture);
 
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty('name', 'Restaurant Name');

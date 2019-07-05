@@ -2,41 +2,7 @@ const request = require('supertest');
 
 const app = require('../../src/app');
 const Restaurants = require('../../src/models/restaurants');
-
-const fixture = {
-  title: 'Outback',
-  rating: 10,
-  knowFor: 'Restaurante australiano',
-  fame: 'Restaurante australiano',
-  ocasion: 'Aniversário',
-  date: '11/05/2019',
-  observations: 'Costela acompanha arroz e batata, serve duas pessoas. Chokki thunder burger: delicioso porém muito doce, pedir em grupo, tem carregador portátil.',
-  address: 'Shopping aricanduva ',
-  waitTime: '16min',
-  ratings: {
-    service: 5,
-    environment: 4.5,
-    price: 4.5,
-    food: 3.5,
-  },
-  recomendations: {
-    askNext: 'Camarão ',
-    neverAsk: '',
-    worth: true,
-  },
-  convenience: {
-    wifi: true,
-    goodWines: true,
-    goodForGroups: true,
-    funny: true,
-    goodForCouples: true,
-    music: true,
-    airConditioning: true,
-    parking: true,
-    openLate: true,
-    acceptCards: true,
-  },
-};
+const { restaurant: restaurantFixture } = require('./../fixtures/fixtures');
 
 describe('Restaurants', () => {
   beforeAll(async (done) => {
@@ -57,7 +23,7 @@ describe('Restaurants', () => {
 
   test('POST /api/restaurants', async () => {
     const res = await request(app).post('/api/restaurants')
-      .send(fixture);
+      .send(restaurantFixture);
 
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty('title', 'Outback');
