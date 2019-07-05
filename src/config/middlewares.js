@@ -4,7 +4,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 module.exports = (app) => {
-  app.use(morgan('dev'));
+  if (process.env.NODE_ENV !== 'test') {
+    app.use(morgan('dev'));
+  }
+
   app.use(bodyParser.urlencoded({ extended: 'true' }));
   app.use(bodyParser.json());
   app.use(bodyParser.json({ type: 'application/vnd.api+json' }));

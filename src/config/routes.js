@@ -1,7 +1,7 @@
 const express = require('express');
-const restaurantService = require('../api/restaurantsService');
-const wishList = require('../services/wishList');
-const { applicationStatus } = require('../services/healthcheck');
+const restaurantService = require('../routes/restaurants');
+const wishList = require('../routes/wishList');
+const { applicationStatus } = require('../routes/healthcheck');
 
 module.exports = (app) => {
   const router = express.Router();
