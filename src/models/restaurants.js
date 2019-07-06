@@ -1,6 +1,6 @@
-const { mongoose, model } = require('node-restful');
+const { Schema, model } = require('mongoose');
 
-const RestaurantsSchema = mongoose.Schema({
+const RestaurantsSchema = Schema({
   title: String,
   knowFor: String,
   ocasion: String,

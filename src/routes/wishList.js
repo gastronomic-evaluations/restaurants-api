@@ -15,8 +15,9 @@ const remove = async (req, res) => {
   return res.status(204).json(data);
 };
 
-const update = async (req, res) => {
-  const data = await WishList.updateOne({ _id: req.params.id }, req.body).exec();
+const update = async ({ params, body }, res) => {
+  const { id: _id } = params;
+  const data = await WishList.findOneAndUpdate({ _id }, body, { new: true }).exec();
   res.status(200).json(data);
 };
 

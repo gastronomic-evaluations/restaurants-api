@@ -43,7 +43,7 @@ describe('Wish List', () => {
       .send({ name: 'Restaurant new name' });
 
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('nModified', 1);
+    expect(res.body).toHaveProperty('name', 'Restaurant new name');
   });
 
   test('DELETE /api/wishlist/:id', async () => {

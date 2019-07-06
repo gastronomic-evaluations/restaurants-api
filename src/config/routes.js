@@ -1,13 +1,16 @@
-const express = require('express');
-const restaurantService = require('../routes/restaurants');
+const restaurant = require('../routes/restaurants');
 const wishList = require('../routes/wishList');
 const { applicationStatus } = require('../routes/healthcheck');
 
 module.exports = (app) => {
-  const router = express.Router();
-  app.use('/api', router);
+  app.route('/api/restaurants')
+    .post(restaurant.save)
+    .get(restaurant.findAll);
 
-  restaurantService.register(router, '/restaurants');
+  app.route('/api/restaurants/:id')
+    .get(restaurant.findById)
+    .put(restaurant.update)
+    .delete(restaurant.remove);
 
   app.route('/api/wishlist')
     .get(wishList.findAll)

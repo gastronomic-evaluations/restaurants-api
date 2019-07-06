@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const wishListSchema = mongoose.Schema({
+const wishListSchema = Schema({
   name: String,
 });
 
-module.exports = mongoose.model('WishList', wishListSchema);
+module.exports = model('WishList', wishListSchema);
