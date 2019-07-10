@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "server": "NODE_ENV=dev nodemon index.js",
-    "test": "jest --watchAll --verbose=true"
+    "test": "jest --watchAll --verbose=true",
+    "test:ci": "jest --verbose=true"
   },
   "keywords": [],
   "author": "",
