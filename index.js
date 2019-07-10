@@ -1,10 +1,8 @@
 const dotenv = require('dotenv');
+const http = require('http');
 
-if (process.env.NODE_ENV === 'dev') {
-  dotenv.config({ path: '.env.dev' });
-}
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
-const { PORT } = process.env;
 const app = require('./src/app');
 
-app.listen(PORT);
+http.createServer(app).listen(process.env.PORT);
