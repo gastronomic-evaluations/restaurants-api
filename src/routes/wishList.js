@@ -1,29 +1,48 @@
-const WishList = require('../models/wishList');
+const WishList = require('../services/wishList');
 
-const findAll = async (req, res) => {
-  const data = await WishList.find({}).exec();
-  res.status(200).json(data);
+const findAll = async (req, res, next) => {
+  try {
+    const data = await WishList.read();
+    return res.status(200).json(data);
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const save = async (req, res) => {
-  const data = await WishList.create(req.body);
-  res.status(201).json(data);
+const save = async (req, res, next) => {
+  try {
+    const data = await WishList.create(req.body);
+    return res.status(201).json(data);
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const remove = async (req, res) => {
-  const data = await WishList.deleteOne({ _id: req.params.id }).exec();
-  return res.status(204).json(data);
+const remove = async (req, res, next) => {
+  try {
+    const data = await WishList.remove(req.params.id);
+    return res.status(204).json(data);
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const update = async ({ params, body }, res) => {
-  const { id: _id } = params;
-  const data = await WishList.findOneAndUpdate({ _id }, body, { new: true }).exec();
-  res.status(200).json(data);
+const update = async ({ params, body }, res, next) => {
+  try {
+    const data = await WishList.update(params.id, body);
+    return res.status(200).json(data);
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const findById = async (req, res) => {
-  const data = await WishList.findById(req.params.id).exec();
-  res.status(200).json(data);
+const findById = async (req, res, next) => {
+  try {
+    const data = await WishList.readById(req.params.id);
+    return res.status(200).json(data);
+  } catch (err) {
+    return next(err);
+  }
 };
 
 module.exports = {
