@@ -27,7 +27,6 @@
     "music": true,
     "airConditioning": true,
     "parking": true,
-    "openLate": true,
     "acceptCards": true
   }
 }
