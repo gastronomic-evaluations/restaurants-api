@@ -1,7 +1,5 @@
-function ValidationError(field, message) {
-  this.errors = {
-    [field]: message,
-  };
+function ValidationError(errors) {
+  this.errors = errors;
 }
 
 module.exports = ValidationError;
