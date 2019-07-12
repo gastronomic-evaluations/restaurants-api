@@ -40,7 +40,7 @@ describe('Restaurants', () => {
       expect(res.body).toHaveProperty('convenience');
       expect(res.body.convenience).toHaveProperty('wifi', true);
 
-      expect(res.body.convenience.openLate).toBeTruthy();
+      expect(res.body.convenience.openLate).toBeFalsy();
     });
 
     test('shouldn`t create a restaurant without title', async () => {
