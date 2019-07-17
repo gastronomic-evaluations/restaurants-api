@@ -66,7 +66,7 @@ describe('Restaurants', () => {
       });
     });
 
-    test('shouldn`t create a restaurant without title', async () => {
+    test('shouldn`t create a restaurant without required fields', async () => {
       const fixture = { ...restaurantFixture };
       delete fixture.title;
       delete fixture.date;
