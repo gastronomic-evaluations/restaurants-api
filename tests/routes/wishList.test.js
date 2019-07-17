@@ -40,6 +40,15 @@ describe('Wish List', () => {
       expect(res.body).toHaveProperty('errors');
       expect(res.body.errors).toHaveProperty('name', 'O nome é um campo obrigatório.');
     });
+
+    test('shouldn`t create a wish with invalid name', async () => {
+      const res = await request(app).post('/api/wishlist')
+        .send({ name: null });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('errors');
+      expect(res.body.errors).toHaveProperty('name', 'O nome é um campo obrigatório.');
+    });
   });
 
   describe('GET /api/wishlist/:id', () => {
