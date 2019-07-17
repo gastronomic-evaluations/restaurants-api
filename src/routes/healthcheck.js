@@ -1,6 +1,6 @@
 const { connection } = require('mongoose');
 
-const applicationStatus = (req, res) => {
+const healthcheck = (req, res) => {
   const dictionary = {
     0: 'disconnected',
     1: 'connected',
@@ -14,4 +14,4 @@ const applicationStatus = (req, res) => {
   });
 };
 
-module.exports = { applicationStatus };
+module.exports = healthcheck;

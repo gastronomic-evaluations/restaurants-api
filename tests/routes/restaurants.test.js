@@ -43,41 +43,51 @@ describe('Restaurants', () => {
       expect(res.body.convenience.openLate).toBeFalsy();
     });
 
-    test('shouldn`t create a restaurant without title', async () => {
+    test('shouldn`t create a restaurant with wrong ratings', async () => {
       const fixture = { ...restaurantFixture };
-      delete fixture.title;
+
+      fixture.ratings.service = 'NaN';
+      fixture.ratings.food = 'NaN';
+      fixture.ratings.environment = 'NaN';
+      fixture.ratings.price = 'NaN';
 
       const res = await request(app).post('/api/restaurants')
         .send(fixture);
-
-      expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty('errors');
-      expect(res.body.errors).toHaveProperty('title', 'O título é um campo obrigatório.');
-    });
-
-    test('shouldn`t create a restaurant without date', async () => {
-      const fixture = { ...restaurantFixture };
-      delete fixture.date;
-
-      const res = await request(app).post('/api/restaurants')
-        .send(fixture);
-
-      expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty('errors');
-      expect(res.body.errors).toHaveProperty('date', 'A data é um campo obrigatório.');
-    });
-
-    test('shouldn`t create a restaurant without service rating', async () => {
-      const fixture = { ...restaurantFixture };
-      delete fixture.ratings.service;
-
-      const res = await request(app).post('/api/restaurants').send(fixture);
 
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty('errors');
       expect(res.body.errors).toMatchObject({
         ratings: {
+          service: 'A nota para o serviço precisa ser um número.',
+          food: 'A nota para a comida precisa ser um número.',
+          environment: 'A nota para o ambiente precisa ser um número.',
+          price: 'A nota para o preço precisa ser um número.',
+        },
+      });
+    });
+
+    test('shouldn`t create a restaurant without title', async () => {
+      const fixture = { ...restaurantFixture };
+      delete fixture.title;
+      delete fixture.date;
+      delete fixture.ratings.service;
+      delete fixture.ratings.food;
+      delete fixture.ratings.environment;
+      delete fixture.ratings.price;
+
+      const res = await request(app).post('/api/restaurants')
+        .send(fixture);
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('errors');
+      expect(res.body.errors).toMatchObject({
+        title: 'O título é um campo obrigatório.',
+        date: 'A data é um campo obrigatório.',
+        ratings: {
           service: 'A nota para o serviço é um campo obrigatório.',
+          food: 'A nota para a comida é um campo obrigatório.',
+          environment: 'A nota para o ambiente é um campo obrigatório.',
+          price: 'A nota para o preço é um campo obrigatório.',
         },
       });
     });
@@ -97,7 +107,16 @@ describe('Restaurants', () => {
     test('should update a restaurant with success', async () => {
       const { _id } = await Restaurants.findOne().exec();
       const res = await request(app).put(`/api/restaurants/${_id}`)
-        .send({ title: 'Madero' });
+        .send({
+          title: 'Madero',
+          date: '11/11/1993',
+          ratings: {
+            service: 5,
+            food: 5,
+            environment: 5,
+            price: 5,
+          },
+        });
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('title', 'Madero');

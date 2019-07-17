@@ -1,19 +1,10 @@
 const WishList = require('../models/wishList');
-const ValidationError = require('../config/validationError');
 
-const create = async (wish) => {
-  if (!wish.name) throw new ValidationError({ name: 'O nome é um campo obrigatório.' });
+const create = async wish => WishList.create(wish);
 
-  return WishList.create(wish);
-};
-
-const update = (_id, wish) => {
-  if (!wish.name) throw new ValidationError({ name: 'O nome é um campo obrigatório.' });
-
-  return WishList
-    .findOneAndUpdate({ _id }, wish, { new: true })
-    .exec();
-};
+const update = (_id, wish) => WishList
+  .findOneAndUpdate({ _id }, wish, { new: true })
+  .exec();
 
 const read = () => WishList.find({}).exec();
 const readById = id => WishList.findById(id).exec();
