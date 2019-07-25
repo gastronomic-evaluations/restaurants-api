@@ -1,27 +1,14 @@
-const restaurant = require('../routes/restaurants');
-const wishList = require('../routes/wishList');
+const { Router } = require('express');
 const healthcheck = require('../routes/healthcheck');
-const { restaurantValidations, wishValidations } = require('./validations');
+const restaurants = require('../routes/restaurants');
+const withList = require('../routes/wishList');
 
 module.exports = (app) => {
-  app.route('/api/restaurants')
-    .post(restaurantValidations, restaurant.save)
-    .get(restaurant.findAll);
+  const router = new Router();
 
-  app.route('/api/restaurants/:id')
-    .put(restaurantValidations, restaurant.update)
-    .get(restaurant.findById)
-    .delete(restaurant.remove);
+  app.use('/restaurants/api', router);
 
-  app.route('/api/wishlist')
-    .get(wishList.findAll)
-    .post(wishValidations, wishList.save);
-
-  app.route('/api/wishlist/:id')
-    .put(wishValidations, wishList.update)
-    .delete(wishList.remove)
-    .get(wishList.findById);
-
-  app.route('/healthcheck')
-    .get(healthcheck);
+  restaurants(router);
+  withList(router);
+  healthcheck(router);
 };

@@ -15,17 +15,17 @@ describe('Restaurants', () => {
     done();
   });
 
-  describe('GET /api/restaurants', () => {
+  describe('GET /restaurants/api/restaurants', () => {
     test('should list all restaurants with success', async () => {
-      const res = await request(app).get('/api/restaurants');
+      const res = await request(app).get('/restaurants/api/restaurants');
 
       expect(res.status).toBe(200);
     });
   });
 
-  describe('POST /api/restaurants', () => {
+  describe('POST /restaurants/api/restaurants', () => {
     test('should create a restaurant with success', async () => {
-      const res = await request(app).post('/api/restaurants')
+      const res = await request(app).post('/restaurants/api/restaurants')
         .send(restaurantFixture);
 
       expect(res.status).toBe(201);
@@ -51,7 +51,7 @@ describe('Restaurants', () => {
       fixture.ratings.environment = 'NaN';
       fixture.ratings.price = 'NaN';
 
-      const res = await request(app).post('/api/restaurants')
+      const res = await request(app).post('/restaurants/api/restaurants')
         .send(fixture);
 
       expect(res.status).toBe(400);
@@ -75,7 +75,7 @@ describe('Restaurants', () => {
       delete fixture.ratings.environment;
       delete fixture.ratings.price;
 
-      const res = await request(app).post('/api/restaurants')
+      const res = await request(app).post('/restaurants/api/restaurants')
         .send(fixture);
 
       expect(res.status).toBe(400);
@@ -93,20 +93,20 @@ describe('Restaurants', () => {
     });
   });
 
-  describe('GET /api/restaurants/:id', () => {
+  describe('GET /restaurants/api/restaurants/:id', () => {
     test('should get a restaurant by id with success', async () => {
       const { _id } = await Restaurants.findOne().exec();
-      const res = await request(app).get(`/api/restaurants/${_id}`);
+      const res = await request(app).get(`/restaurants/api/restaurants/${_id}`);
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('title', 'Outback');
     });
   });
 
-  describe('PUT /api/restaurants/:id', () => {
+  describe('PUT /restaurants/api/restaurants/:id', () => {
     test('should update a restaurant with success', async () => {
       const { _id } = await Restaurants.findOne().exec();
-      const res = await request(app).put(`/api/restaurants/${_id}`)
+      const res = await request(app).put(`/restaurants/api/restaurants/${_id}`)
         .send({
           title: 'Madero',
           date: '11/11/1993',
@@ -124,7 +124,7 @@ describe('Restaurants', () => {
 
     test('shouldn`t update a restaurant with empty title', async () => {
       const { _id } = await Restaurants.findOne().exec();
-      const res = await request(app).put(`/api/restaurants/${_id}`)
+      const res = await request(app).put(`/restaurants/api/restaurants/${_id}`)
         .send({ title: '' });
 
       expect(res.status).toBe(400);
@@ -134,7 +134,7 @@ describe('Restaurants', () => {
 
     test('shouldn`t update a restaurant with empty date', async () => {
       const { _id } = await Restaurants.findOne().exec();
-      const res = await request(app).put(`/api/restaurants/${_id}`)
+      const res = await request(app).put(`/restaurants/api/restaurants/${_id}`)
         .send({ date: '' });
 
       expect(res.status).toBe(400);
@@ -143,10 +143,10 @@ describe('Restaurants', () => {
     });
   });
 
-  describe('DELETE /api/restaurants/:id', () => {
+  describe('DELETE /restaurants/api/restaurants/:id', () => {
     test('should delete a restaurant with success', async () => {
       const { _id } = await Restaurants.findOne().exec();
-      const res = await request(app).delete(`/api/restaurants/${_id}`);
+      const res = await request(app).delete(`/restaurants/api/restaurants/${_id}`);
 
       expect(res.status).toBe(204);
     });
