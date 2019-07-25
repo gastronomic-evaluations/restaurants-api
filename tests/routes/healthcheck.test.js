@@ -2,8 +2,8 @@ const request = require('supertest');
 
 const app = require('../../src/app');
 
-test('GET /healthcheck', async () => {
-  const res = await request(app).get('/healthcheck');
+test('GET /restaurants/api/healthcheck', async () => {
+  const res = await request(app).get('/restaurants/api/healthcheck');
 
   expect(res.status).toBe(200);
   expect(res.body).toHaveProperty('status', 'ok');
