@@ -7,7 +7,7 @@ const update = (_id, user) => Users
   .exec();
 
 const read = () => Users.find({}).exec();
-const readById = id => Users.findById(id).exec();
+const readOne = filter => Users.findOne(filter).select('+password');
 const remove = _id => Users.deleteOne({ _id }).exec();
 
 module.exports = {
@@ -15,5 +15,5 @@ module.exports = {
   read,
   update,
   remove,
-  readById,
+  readOne,
 };
