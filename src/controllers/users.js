@@ -37,7 +37,7 @@ const auth = async (req, res) => {
 
   user.password = undefined;
 
-  return res.send({
+  return res.status(200).send({
     name: user.name,
     token: generateToken({ id: user.id }),
   });

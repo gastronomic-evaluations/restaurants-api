@@ -34,6 +34,7 @@ describe('Users', () => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('token');
       expect(res.body).toHaveProperty('name', 'john');
+      expect(res.body).not.toHaveProperty('password');
     });
 
     test('should return error if password is incorrect', async () => {
