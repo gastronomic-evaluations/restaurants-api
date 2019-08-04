@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
 
+const { SECRET, DISABLE_AUTH } = process.env;
+
 module.exports = (req, res, next) => {
+  if (DISABLE_AUTH) return next();
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader) return res.status(401).send({ error: 'no token' });
@@ -13,7 +17,7 @@ module.exports = (req, res, next) => {
 
   if (!/^Bearer$/i.test(scheme)) return res.status(401).send({ error: 'token malformatted' });
 
-  return jwt.verify(token, process.env.SECRET, (err, decoded) => {
+  return jwt.verify(token, SECRET, (err, decoded) => {
     if (err) return res.status(401).send({ error: 'token invalid' });
     req.userId = decoded.id;
     return next();
