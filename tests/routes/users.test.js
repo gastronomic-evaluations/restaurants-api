@@ -24,6 +24,19 @@ describe('Users', () => {
       expect(res.body).toHaveProperty('token');
       expect(res.body).not.toHaveProperty('password');
     });
+
+    test('shouldn`t signin without required fields', async () => {
+      const res = await request(app).post('/restaurants/api/signin')
+        .send({ });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('errors');
+      expect(res.body.errors).toMatchObject({
+        name: 'O nome é um campo obrigatório.',
+        email: 'O email é um campo obrigatório.',
+        password: 'A senha é um campo obrigatório.',
+      });
+    });
   });
 
   describe('POST /restaurants/api/auth', () => {
@@ -35,6 +48,18 @@ describe('Users', () => {
       expect(res.body).toHaveProperty('token');
       expect(res.body).toHaveProperty('name', 'john');
       expect(res.body).not.toHaveProperty('password');
+    });
+
+    test('shouldn`t auth without email and password', async () => {
+      const res = await request(app).post('/restaurants/api/auth')
+        .send({ });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('errors');
+      expect(res.body.errors).toMatchObject({
+        email: 'O email é um campo obrigatório.',
+        password: 'A senha é um campo obrigatório.',
+      });
     });
 
     test('should return error if password is incorrect', async () => {
