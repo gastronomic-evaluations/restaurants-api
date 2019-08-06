@@ -30,6 +30,11 @@ const convenienceSchema = Schema({
 });
 
 const RestaurantsSchema = Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    require: true,
+  },
   title: { type: String, required: true },
   knowFor: String,
   ocasion: String,

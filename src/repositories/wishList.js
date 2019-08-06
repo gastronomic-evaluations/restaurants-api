@@ -2,13 +2,13 @@ const WishList = require('../models/wishList');
 
 const create = async wish => WishList.create(wish);
 
-const update = (_id, wish) => WishList
-  .findOneAndUpdate({ _id }, wish, { new: true })
+const update = (_id, wish, user) => WishList
+  .findOneAndUpdate({ _id, user }, wish, { new: true })
   .exec();
 
-const read = () => WishList.find({}).exec();
-const readById = id => WishList.findById(id).exec();
-const remove = _id => WishList.deleteOne({ _id }).exec();
+const read = userId => WishList.find({ user: userId }).exec();
+const readById = (_id, user) => WishList.find({ _id, user }).exec();
+const remove = (_id, user) => WishList.deleteOne({ _id, user }).exec();
 
 module.exports = {
   create,
