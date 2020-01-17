@@ -10,7 +10,7 @@
     "start": "node index.js",
     "server": "NODE_ENV=dev nodemon index.js",
     "test": "NODE_ENV=test jest --watchAll --verbose=true",
-    "test:ci": "jest --coverage --verbose=true",
+    "test:ci": "NODE_ENV=test jest --coverage --verbose=true",
     "coverage": "jest --coverage"
   },
   "keywords": [],
