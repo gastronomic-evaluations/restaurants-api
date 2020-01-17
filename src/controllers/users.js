@@ -1,12 +1,6 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const { generateToken } = require('../lib/token');
 const Users = require('../repositories/users');
-
-function generateToken(params = {}) {
-  return jwt.sign(params, process.env.SECRET, {
-    expiresIn: 86400,
-  });
-}
 
 const save = async (req, res, next) => {
   try {
@@ -27,12 +21,13 @@ const auth = async (req, res) => {
 
   const user = await Users.readOne({ email });
 
-  if (!user) {
-    return res.status(400).send({ error: 'Usuário ou senha incorretos.' });
-  }
-
-  if (!await bcrypt.compare(password, user.password)) {
-    return res.status(400).send({ error: 'Usuário ou senha incorretos.' });
+  if (!user || !await bcrypt.compare(password, user.password)) {
+    return res.status(400).send({
+      errors: {
+        email: ' ',
+        password: 'Email ou senha estão incorreta.',
+      },
+    });
   }
 
   user.password = undefined;
