@@ -67,7 +67,11 @@ describe('Users', () => {
         .send({ email: 'john@gmail.com', password: '1234' });
 
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty('error', 'Usuário ou senha incorretos.');
+      expect(res.body).toHaveProperty('errors');
+      expect(res.body.errors).toMatchObject({
+        email: ' ',
+        password: 'Email ou senha estão incorreta.',
+      });
     });
 
     test('should return error if email is incorrect', async () => {
@@ -75,7 +79,11 @@ describe('Users', () => {
         .send({ email: 'john2@gmail.com', password: '123' });
 
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty('error', 'Usuário ou senha incorretos.');
+      expect(res.body).toHaveProperty('errors');
+      expect(res.body.errors).toMatchObject({
+        email: ' ',
+        password: 'Email ou senha estão incorreta.',
+      });
     });
   });
 });
